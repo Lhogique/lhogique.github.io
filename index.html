@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIBIRU FILMS</title>
+<style>
+  /* ── FUENTES AUTOALOJADAS ── */
+  @font-face {
+    font-family: 'Bebas Neue';
+    src: url('fonts/bebas-neue-v14-latin-regular.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('fonts/space-mono-v13-latin-regular.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('fonts/space-mono-v13-latin-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('fonts/space-mono-v13-latin-italic.woff2') format('woff2');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('fonts/space-mono-v13-latin-700italic.woff2') format('woff2');
+    font-weight: 700; font-style: italic; font-display: swap;
+  }
+</style>
+<!-- Fallback Google Fonts si los archivos locales no están aún disponibles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --accent: #80b3ac;
+    --red: #a72828;
+    --mono: 'Space Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    width: 100%; min-height: 100%;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--mono);
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTQiIGhlaWdodD0iNTQiIHZpZXdCb3g9IjAgMCA1NCA1NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8bGluZSB4MT0iMjciIHkxPSIwIiAgeDI9IjI3IiB5Mj0iMjAiIHN0cm9rZT0iIzgwYjNhYyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMjciIHkxPSIzNCIgeDI9IjI3IiB5Mj0iNTQiIHN0cm9rZT0iIzgwYjNhYyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMCIgIHkxPSIyNyIgeDI9IjIwIiB5Mj0iMjciIHN0cm9rZT0iIzgwYjNhYyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMzQiIHkxPSIyNyIgeDI9IjU0IiB5Mj0iMjciIHN0cm9rZT0iIzgwYjNhYyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIyNCIgeT0iMjQiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzgwYjNhYyIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8cmVjdCB4PSIxOCIgeT0iMTgiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODBiM2FjIiBzdHJva2Utd2lkdGg9IjAuNiIgb3BhY2l0eT0iMC40Ii8+Cjwvc3ZnPg==') 27 27, crosshair;
+  }
+
+  /* SCAN LINES */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 3px,
+      rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px
+    );
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+  }
+
+  .nav-status {
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .nav-status .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .nav-links {
+    display: flex; gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::before {
+    content: '//';
+    margin-right: 6px;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 1.5px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .nav-links a:hover { color: rgba(255,255,255,0.4); }
+  .nav-links a:hover::before { opacity: 1; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-links a.classified { color: rgba(255,255,255,0.65); }
+  .nav-links a.classified::before { color: var(--accent); }
+
+  .nav-right {
+    font-size: 14px; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    margin: 80px 60px 50px;
+    height: calc(100vh - 130px);
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+
+  /*
+  ══════════════════════════════════════════
+  VÍDEO DE FONDO
+  Para usar tu GIF o vídeo:
+
+  Opción A — GIF:
+  Sustituye el div#heroBg por:
+  <img id="heroBg" src="tu-video.gif" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5) contrast(1.1);">
+
+  Opción B — Vídeo (recomendado, pesa menos):
+  <video id="heroBg" autoplay loop muted playsinline
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5) contrast(1.1);">
+    <source src="tu-video.mp4" type="video/mp4">
+  </video>
+  ══════════════════════════════════════════
+  */
+
+  /* Efecto cinematográfico sobre el fondo */
+
+  .vignette {
+    position: absolute; inset: 0; z-index: 2;
+    background: radial-gradient(ellipse 120% 100% at 50% 50%,
+      transparent 40%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+  }
+
+  .hero-gradient {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 65%; z-index: 3;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* LOGO */
+  .logo-wrap {
+    position: absolute;
+    top: -50px; left: 0; right: 0;
+    display: flex; justify-content: center;
+    z-index: 10;
+    animation: logoFadeIn 2s ease both, logoGlitch 6s linear 2s infinite;
+  }
+
+  .logo-wrap svg {
+    width: 624px; height: auto;
+  }
+
+  /* HUD CORNERS */
+  .hud-corner {
+    position: absolute; z-index: 10;
+    width: 32px; height: 32px;
+  }
+  .hud-corner.tl { top: 12px; left: 12px; border-top: 1px solid rgba(128,179,172,0.4); border-left: 1px solid rgba(128,179,172,0.4); }
+  .hud-corner.tr { top: 12px; right: 12px; border-top: 1px solid rgba(128,179,172,0.4); border-right: 1px solid rgba(128,179,172,0.4); }
+  .hud-corner.bl { bottom: 80px; left: 12px; border-bottom: 1px solid rgba(128,179,172,0.4); border-left: 1px solid rgba(128,179,172,0.4); }
+  .hud-corner.br { bottom: 80px; right: 12px; border-bottom: 1px solid rgba(128,179,172,0.4); border-right: 1px solid rgba(128,179,172,0.4); }
+
+  /* RETICLE */
+  .hud-reticle {
+    position: absolute; z-index: 10;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px; height: 120px;
+    border: 1px solid rgba(128,179,172,0.08);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  .hud-reticle::before {
+    content: '';
+    position: absolute; inset: 12px;
+    border: 1px solid rgba(128,179,172,0.05);
+    border-radius: 50%;
+  }
+  .hud-reticle::after {
+    content: '';
+    position: absolute; top: 50%; left: -20px; right: -20px;
+    height: 1px;
+    background: rgba(128,179,172,0.06);
+  }
+
+  /* SCAN LINE ANIMADA */
+  .hud-scanline {
+    position: absolute; z-index: 9;
+    left: 12px; right: 12px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(128,179,172,0.15) 30%, rgba(128,179,172,0.15) 70%, transparent);
+    top: 50%;
+    animation: scanY 8s ease-in-out infinite;
+  }
+
+  /* TELEMETRÍA IZQUIERDA */
+  .telemetry {
+    position: absolute; left: 24px; bottom: 90px; z-index: 10;
+    display: flex; flex-direction: column; gap: 6px;
+    animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.8s both;
+  }
+
+  .telem-row {
+    font-size: 12px; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.25);
+    display: flex; gap: 16px;
+  }
+
+  .telem-row .label { color: rgba(128,179,172,0.5); }
+
+  /* COORDENADAS DERECHA */
+  .coords {
+    position: absolute; right: 24px; bottom: 90px; z-index: 10;
+    text-align: right;
+    animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.9s both;
+  }
+
+  .coords-val {
+    font-size: 12px; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.2);
+    line-height: 1.8;
+  }
+
+  /* SELLO CLASIFICADO */
+  .classified-stamp {
+    position: absolute;
+    top: 42%; right: 80px;
+    z-index: 8;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: rgba(255,42,42,0.12);
+    transform: rotate(-14deg);
+    border: 1px solid rgba(255,42,42,0.08);
+    padding: 6px 14px;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  /* CONTENIDO INFERIOR */
+  .hero-content {
+    position: relative; z-index: 10;
+    width: 100%;
+    padding: 0 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: flex-end;
+    gap: 24px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+  }
+
+  .hero-headline {
+    font-family: var(--display);
+    font-size: clamp(56px, 9vw, 120px);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: var(--white);
+  }
+
+  .hero-headline .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+  }
+
+  .hero-meta {
+    display: flex; flex-direction: column; gap: 14px;
+    align-items: flex-end;
+    padding-bottom: 6px;
+  }
+
+  .meta-tag {
+    font-size: 13px; letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .meta-tag .bar {
+    width: 24px; height: 1px;
+    background: rgba(128,179,172,0.5);
+  }
+
+  .cta-group {
+    display: flex; gap: 12px; margin-top: 0;
+  }
+
+  /* BLOQUE BAJO HERO */
+  .hero-sub {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+  }
+
+  .hero-sub-left {
+    display: flex; align-items: center; gap: 32px;
+  }
+
+  .cta {
+    font-family: var(--mono);
+    font-size: 14px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer; border: none;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .cta-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .cta-primary:hover {
+    background: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .cta-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .cta-ghost:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-1px);
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    position: fixed; bottom: 30px; left: 0; right: 0;
+    z-index: 999;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ticker-inner {
+    display: flex; white-space: nowrap;
+    animation: ticker 32s linear infinite;
+    font-size: 13px; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.08);
+  }
+
+  .ticker-inner span { padding-right: 80px; }
+
+  /* STATUS BAR */
+  .statusbar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    font-size: 13px; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .statusbar .live {
+    color: var(--red);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .statusbar .live::before {
+    content: '●';
+    animation: blink 1.2s step-end infinite;
+  }
+
+  /* ANIMACIONES */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes logoFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes logoGlitch {
+    0%     { transform: translate(0,0) skewX(0deg); opacity: 1; filter: none; clip-path: none; }
+    91.6%  { transform: translate(0,0) skewX(0deg); opacity: 1; filter: none; clip-path: none; }
+    93%    { transform: translate(-8px, 0) skewX(-5deg); opacity: 0.75; filter: brightness(1.5) hue-rotate(20deg); clip-path: inset(8% 0 55% 0); }
+    94.5%  { transform: translate(8px, 0) skewX(4deg); opacity: 0.9; filter: brightness(0.7); clip-path: inset(45% 0 8% 0); }
+    96%    { transform: translate(-4px, 0) skewX(0deg); opacity: 1; filter: none; clip-path: none; }
+    97%    { transform: translate(10px, 0) skewX(6deg); opacity: 0.6; filter: brightness(1.8); clip-path: inset(25% 0 35% 0); }
+    98.5%  { transform: translate(-6px, 0) skewX(-3deg); opacity: 0.85; filter: brightness(0.6); clip-path: inset(55% 0 5% 0); }
+    100%   { transform: translate(0,0) skewX(0deg); opacity: 1; filter: none; clip-path: none; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  @keyframes spin {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to   { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+
+  @keyframes scanY {
+    0%, 100% { top: 30%; opacity: 0.5; }
+    50%       { top: 70%; opacity: 1; }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-status">
+    <span class="dot"></span>
+    SGV:ONLINE · NIBIRUFILMS.ES
+  </div>
+  <ul class="nav-links">
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="fotografia.html">Fotografía</a></li>
+    <li><a href="sobre-mi.html" class="classified">Clasificado</a></li>
+  </ul>
+  <div class="nav-right">LOC:38.7N_0.1W · UTC+2</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video id="heroBg" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="Ulisses_background.mp4" type="video/mp4"></video>
+
+  <div class="vignette"></div>
+  <div class="hero-gradient"></div>
+
+  <!-- HUD CORNERS -->
+  <div class="hud-corner tl"></div>
+  <div class="hud-corner tr"></div>
+  <div class="hud-corner bl"></div>
+  <div class="hud-corner br"></div>
+
+  <!-- RETICLE -->
+  <div class="hud-reticle"></div>
+  <div class="hud-scanline"></div>
+
+  <!-- LOGO SVG INCRUSTADO -->
+  <div class="logo-wrap">
+    <svg viewBox="0 0 842 842" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+      <g>
+        <g transform="matrix(1,0,0,1,317.208,586.3215)"><path d="M0,-39.426L-24.181,-39.426L-24.181,-20.681L-3.593,-20.681L-3.593,-17.619L-24.181,-17.619L-24.181,3.062L-27.648,3.062L-27.648,-42.488L0,-42.488L0,-39.426Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(-1,0,0,1,694.706,291.218)"><rect x="345.619" y="252.616" width="3.468" height="45.55" style="fill:white;"/></g>
+        <g transform="matrix(1,0,0,1,409.9883,543.8338)"><path d="M0,45.55L-27.648,45.55L-27.648,0L-24.181,0L-24.181,42.488L0,42.488L0,45.55Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,476.3887,543.8338)"><path d="M0,45.55L-3.468,45.55L-3.468,7.998L-17.276,39.146L-20.744,39.146L-34.803,7.998L-34.803,45.55L-38.271,45.55L-38.271,0L-34.803,0L-18.933,35.115L-3.468,0L0,0L0,45.55Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,536.3838,556.05)"><path d="M0,21.118C0,22.993 -0.349,24.717 -1.046,26.289C-1.744,27.862 -2.754,29.194 -4.076,30.288C-5.399,31.382 -7.024,32.224 -8.95,32.818C-10.877,33.412 -13.007,33.709 -15.339,33.709C-17.506,33.709 -19.484,33.5 -21.275,33.084C-23.066,32.668 -24.712,32.012 -26.211,31.116C-27.711,30.221 -29.147,29.085 -30.522,27.711L-28.086,25.273C-26.713,26.648 -25.392,27.726 -24.123,28.507C-22.854,29.288 -21.492,29.84 -20.035,30.163C-18.58,30.486 -16.957,30.647 -15.168,30.647C-12.776,30.647 -10.707,30.277 -8.959,29.538C-7.212,28.799 -5.859,27.716 -4.903,26.289C-3.946,24.862 -3.468,23.181 -3.468,21.243C-3.468,18.453 -4.3,16.318 -5.963,14.839C-6.733,14.173 -7.586,13.668 -8.521,13.324C-9.458,12.98 -10.8,12.673 -12.546,12.402L-17.85,11.59C-21.304,11.069 -24.009,9.955 -25.965,8.247C-28.357,6.248 -29.554,3.457 -29.554,-0.125C-29.554,-2.041 -29.216,-3.776 -28.539,-5.327C-27.863,-6.878 -26.921,-8.191 -25.714,-9.264C-24.508,-10.336 -23.02,-11.158 -21.25,-11.732C-19.481,-12.304 -17.535,-12.591 -15.412,-12.591C-12.645,-12.591 -10.262,-12.2 -8.264,-11.419C-6.266,-10.638 -4.277,-9.394 -2.301,-7.686L-4.56,-5.437C-6.161,-6.873 -7.778,-7.936 -9.41,-8.623C-11.044,-9.311 -13.107,-9.654 -15.604,-9.654C-18.89,-9.654 -21.47,-8.811 -23.341,-7.123C-25.213,-5.437 -26.148,-3.146 -26.148,-0.25C-26.148,2.394 -25.369,4.373 -23.809,5.685C-22.956,6.373 -21.911,6.972 -20.674,7.481C-19.437,7.992 -18.214,8.331 -17.008,8.497L-12.109,9.278C-10.003,9.591 -8.354,9.966 -7.166,10.403C-5.977,10.84 -4.913,11.465 -3.974,12.277C-2.681,13.34 -1.695,14.626 -1.017,16.136C-0.339,17.645 0,19.306 0,21.118" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,636.584,366.8272)"><path d="M0,-55.191L-31.867,0L31.865,0L0,-55.191Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,723.6309,531.7163)"><path d="M0,-158.54L-52.049,-158.54C-31.936,-146.35 -19.437,-124.588 -19.437,-100.467C-19.437,-62.98 -49.936,-32.48 -87.424,-32.48C-124.91,-32.48 -155.408,-62.98 -155.408,-100.467C-155.408,-124.588 -142.912,-146.35 -122.801,-158.54L-174.848,-158.54C-177.814,-153.852 -181.365,-148.951 -183.523,-143.898C-177.07,-135.84 -172.156,-126.045 -170.871,-114.574C-169.754,-104.545 -171.043,-95.393 -174.713,-87.367C-177.434,-81.416 -181.146,-76.16 -185.803,-71.635C-172.377,-30.115 -133.355,0 -87.424,0C-30.424,0 15.947,-46.371 15.947,-103.369C15.947,-122.996 10.438,-142.041 0,-158.54" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,225.8589,373.2721)"><path d="M0,158.288L-33.98,158.288L-84.681,78.71L-84.681,158.288L-123.547,158.288L-123.547,0L-89.553,0L-38.866,79.577L-38.866,0L0,0L0,158.288Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,354.1724,422.1799)"><path d="M0,60.472C0,56.652 -1.122,53.406 -3.365,50.74C-5.609,48.074 -9.228,46.738 -14.222,46.738L-40.494,46.738L-40.494,74.421L-14.222,74.421C-9.301,74.421 -5.699,73.052 -3.419,70.314C-1.14,67.574 0,64.292 0,60.472M-2.279,-1.085C-2.279,-4.617 -3.384,-7.643 -5.591,-10.166C-7.799,-12.688 -11.363,-13.95 -16.284,-13.95L-40.494,-13.95L-40.494,11.781L-16.284,11.781C-11.508,11.781 -7.979,10.519 -5.699,7.997C-3.419,5.474 -2.279,2.447 -2.279,-1.085M38.867,62.726C38.867,70.175 37.637,76.794 35.179,82.581C32.72,88.368 29.284,93.251 24.874,97.23C20.463,101.206 15.185,104.226 9.038,106.288C2.891,108.351 -3.616,109.38 -10.484,109.38L-79.36,109.38L-79.36,-48.908L-13.74,-48.908C-3.039,-48.908 6.107,-47.007 13.7,-43.206C21.293,-39.402 27.023,-34.044 30.893,-27.126C34.76,-20.208 36.695,-12.188 36.695,-3.063C36.695,4.615 34.813,11.077 31.05,16.327C27.286,21.579 23.378,25.544 19.325,28.224C24.536,31.335 29.096,35.441 33.004,40.538C36.912,45.638 38.867,53.035 38.867,62.726" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(-1,0,0,1,501.49,62.832)"><rect x="231.312" y="310.44" width="38.866" height="158.288" style="fill:white;"/></g>
+        <g transform="matrix(1,0,0,1,389.6216,531.56)"><path d="M0,-158.288L0,-136.531C3.682,-129.549 5.568,-121.461 5.568,-112.443C5.568,-104.699 3.682,-98.031 0,-92.578L0,-72.883C0.497,-72.287 0.987,-71.682 1.465,-71.059C5.629,-65.625 7.74,-56.75 7.74,-46.654C7.74,-38.973 6.446,-32.029 3.894,-26.017C2.794,-23.43 1.485,-21.014 0,-18.756L0,0L38.865,0L38.865,-158.288L0,-158.288Z" style="fill:white;fill-rule:nonzero;"/></g>
+        <g transform="matrix(1,0,0,1,510.6426,480.5877)"><path d="M0,-56.344C0,-59.157 -0.672,-61.789 -2.016,-64.242C-3.359,-66.696 -5.318,-68.66 -7.895,-70.139C-10.471,-71.619 -13.465,-72.358 -16.877,-72.358L-38.977,-72.358L-38.977,-40.44L-16.877,-40.44C-13.465,-40.44 -10.471,-41.178 -7.895,-42.656C-5.318,-44.137 -3.359,-46.084 -2.016,-48.5C-0.672,-50.916 0,-53.531 0,-56.344M47.225,50.972L2.271,50.972L-25.803,-7.979L-38.977,-7.979L-38.977,50.972L-77.842,50.972L-77.842,-107.316L-15.148,-107.316C-3.797,-107.316 5.928,-104.945 14.025,-100.205C22.125,-95.463 28.289,-89.221 32.52,-81.477C36.75,-73.733 38.865,-65.373 38.865,-56.399C38.865,-46.483 36.357,-37.996 31.34,-30.94C26.324,-23.883 20.244,-18.58 13.098,-15.035L47.225,50.972Z" style="fill:white;fill-rule:nonzero;"/></g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- SELLO CLASIFICADO -->
+  <div class="classified-stamp">Clasificado</div>
+
+  <!-- TELEMETRÍA -->
+  <div class="telemetry">
+    <div class="telem-row"><span class="label">FORMAT</span><span>6K · RAW · LOG-C3</span></div>
+    <div class="telem-row"><span class="label">FRAME</span><span>24.00p · 180°</span></div>
+    <div class="telem-row"><span class="label">LENS</span><span>SIGMA ART · T1.5</span></div>
+  </div>
+
+  <!-- COORDENADAS -->
+  <div class="coords">
+    <div class="coords-val">39°27′N · 0°22′W</div>
+    <div class="coords-val">ALT: 187m ASL</div>
+    <div class="coords-val" id="timeDisp" style="color:rgba(128,179,172,0.6)">--:--:-- UTC</div>
+  </div>
+
+</section>
+
+<!-- SUBTÍTULO + CTA — bajo la hero -->
+<div class="hero-sub">
+  <div class="hero-sub-left">
+    <div class="meta-tag">You are now on Planet X, I'm the <span style="display:inline-block;background:rgba(255,255,255,0.9);width:80px;height:0.8em;vertical-align:middle;position:relative;top:-1px;"></span>.</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>NIBIRU FILMS · DIRECTOR DE FOTOGRAFÍA · SIGMA CINE · SONY VENICE · ARRI ALEXA · 6K RAW · COLORIMETRÍA LOG · PRODUCCIONES AUDIOVISUALES · BARCELONA · MADRID · VALENCIA ·&nbsp;</span>
+    <span>NIBIRU FILMS · DIRECTOR DE FOTOGRAFÍA · SIGMA CINE · SONY VENICE · ARRI ALEXA · 6K RAW · COLORIMETRÍA LOG · PRODUCCIONES AUDIOVISUALES · BARCELONA · MADRID · VALENCIA ·&nbsp;</span>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <span class="live">TRANSMISIÓN EN VIVO</span>
+  <span>NIBIRU FILMS - PROJECTS - BUILD 2026.1.0</span>
+  <span id="frameCount">FRAME: 00000</span>
+</div>
+
+<script>
+  let frame = 0;
+  let lastTime = 0;
+
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getUTCHours()).padStart(2,'0');
+    const m = String(now.getUTCMinutes()).padStart(2,'0');
+    const s = String(now.getUTCSeconds()).padStart(2,'0');
+    const el = document.getElementById('timeDisp');
+    if (el) el.textContent = h + ':' + m + ':' + s + ' UTC';
+  }
+
+  function updateFrame(ts) {
+    if (ts - lastTime > 41.6) {
+      frame++;
+      lastTime = ts;
+      const el = document.getElementById('frameCount');
+      if (el) el.textContent = 'FRAME: ' + String(frame).padStart(5,'0');
+    }
+    requestAnimationFrame(updateFrame);
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+  requestAnimationFrame(updateFrame);
+
+  /* Parallax suave con el ratón */
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 12;
+    const y = (e.clientY / window.innerHeight - 0.5) * 8;
+    const bg = document.getElementById('heroBg');
+    if (bg) bg.style.transform = `translate(${x}px, ${y}px) scale(1.04)`;
+  });
+</script>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECCIÓN PROYECTOS                          -->
+<!-- ══════════════════════════════════════════ -->
+<style>
+  /* CURSOR MIRILLA */
+  .cursor-reticle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    width: 54px; height: 54px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .cursor-reticle svg { width: 100%; height: 100%; }
+
+  /* SECCIÓN */
+  #proyectos {
+    background: #000;
+    padding: 80px 48px 120px;
+    min-height: 100vh;
+  }
+
+  /* CABECERA SECCIÓN */
+  .sec-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding-bottom: 24px;
+  }
+
+  .sec-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; letter-spacing: 0.3em;
+    color: rgba(128,179,172,0.6);
+    text-transform: uppercase;
+  }
+
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: 0.04em;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .sec-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* FILTROS */
+  .filters {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    background: transparent;
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: none;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .filter-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    z-index: 0;
+  }
+
+  .filter-btn span { position: relative; z-index: 1; }
+
+  .filter-btn:hover {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  .filter-btn.active {
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .filter-btn.active::before { transform: scaleX(1); }
+
+  /* GRID PROYECTOS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense;
+    gap: 2px;
+  }
+
+  /* ITEM */
+  .project-item {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    cursor: none;
+    display: block;
+    text-decoration: none;
+  }
+
+  .project-item.hidden {
+    display: none;
+  }
+
+  /* Span 2 cols para destacados */
+  .project-item.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+    aspect-ratio: unset;
+  }
+
+  .project-thumb {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1),
+                filter 0.4s ease;
+    filter: brightness(0.85) saturate(0.9);
+  }
+
+  /* Fallback color si no hay imagen */
+  .project-thumb-placeholder {
+    width: 100%; height: 100%;
+    background: #0d0d12;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: filter 0.4s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .project-item:hover .project-thumb,
+  .project-item:hover .project-thumb-placeholder {
+    filter: blur(6px) brightness(0.4) saturate(1.4);
+    transform: scale(1.04);
+  }
+
+  /* OVERLAY INFO */
+  .project-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  .project-item:hover .project-overlay {
+    background: transparent;
+  }
+
+  /* Info que aparece en hover */
+  .project-info-hover {
+    position: absolute; inset: 0; z-index: 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    pointer-events: none;
+  }
+
+  .project-item:hover .project-info-hover {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-cat-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .project-title-hover {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 3vw, 36px);
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+    line-height: 1.1;
+  }
+
+  .project-meta-hover {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+  }
+
+  /* Info siempre visible (sin hover) */
+  .project-name-default {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+  }
+
+  .project-cat-default {
+    font-size: 13px; letter-spacing: 0.2em;
+    color: rgba(128,179,172,0.5);
+    margin-top: 3px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+  }
+
+  /* HUD lines en hover */
+  .project-hud-tl,
+  .project-hud-br {
+    position: absolute; z-index: 4;
+    width: 20px; height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    pointer-events: none;
+  }
+
+  .project-hud-tl {
+    top: 12px; left: 12px;
+    border-top: 1px solid rgba(128,179,172,0.6);
+    border-left: 1px solid rgba(128,179,172,0.6);
+    transform: translate(-4px, -4px);
+  }
+
+  .project-hud-br {
+    bottom: 12px; right: 12px;
+    border-bottom: 1px solid rgba(128,179,172,0.6);
+    border-right: 1px solid rgba(128,179,172,0.6);
+    transform: translate(4px, 4px);
+  }
+
+  .project-item:hover .project-hud-tl,
+  .project-item:hover .project-hud-br {
+    opacity: 1;
+    transform: translate(0,0);
+  }
+
+  /* Separador entre secciones */
+  .section-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(128,179,172,0.15) 30%, rgba(128,179,172,0.15) 70%, transparent);
+    margin: 0;
+  }
+</style>
+
+<!-- CURSOR CUSTOM -->
+<div class="cursor-reticle" id="customCursor">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="24" cy="24" r="18" stroke="#80b3ac" stroke-width="0.8" opacity="0.7"/>
+    <circle cx="24" cy="24" r="2" fill="#80b3ac" opacity="0.9"/>
+    <line x1="24" y1="0" x2="24" y2="10" stroke="#80b3ac" stroke-width="0.8" opacity="0.6"/>
+    <line x1="24" y1="38" x2="24" y2="48" stroke="#80b3ac" stroke-width="0.8" opacity="0.6"/>
+    <line x1="0" y1="24" x2="10" y2="24" stroke="#80b3ac" stroke-width="0.8" opacity="0.6"/>
+    <line x1="38" y1="24" x2="48" y2="24" stroke="#80b3ac" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="24" cy="24" r="10" stroke="#80b3ac" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.4"/>
+  </svg>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECCIÓN PROYECTOS -->
+<section id="proyectos">
+
+  <div class="sec-header">
+    <div>
+      <div class="sec-label">// 001 · ARCHIVO</div>
+      <h2 class="sec-title">Proyectos</h2>
+    </div>
+    <div class="sec-count" id="projectCount">— / —</div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all"><span>Todos</span></button>
+    <button class="filter-btn" data-filter="cine"><span>Cine</span></button>
+    <button class="filter-btn" data-filter="publicidad"><span>Publicidad</span></button>
+    <button class="filter-btn" data-filter="documental"><span>Documental</span></button>
+    <button class="filter-btn" data-filter="videoclips"><span>Videoclips</span></button>
+    <button class="filter-btn" data-filter="otros"><span>Otros</span></button>
+  </div>
+
+  <!-- GRID
+       Sustituye href por la URL real de YouTube/Vimeo.
+       Sustituye el div.project-thumb-placeholder por:
+       <img class="project-thumb" src="thumbnail.jpg" alt="Título">
+  -->
+  <div class="projects-grid" id="projectsGrid">
+    <a class="project-item featured" href="https://www.youtube.com/watch?v=zm-xIA69ago" target="_blank" rel="noopener" data-cat="documental">
+      <img class="project-thumb" src="ulisses.jpg" alt="ULISSES">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Documental</span>
+        <span class="project-title-hover">ULISSES</span>
+        <span class="project-meta-hover">2021 · Documental</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=n8NXlZ-u67E&list=RDn8NXlZ-u67E&start_radio=1" target="_blank" rel="noopener" data-cat="videoclips">
+      <img class="project-thumb" src="maryjane.jpg" alt="RELS B — MARY JANE">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Videoclips</span>
+        <span class="project-title-hover">RELS B — MARY JANE</span>
+        <span class="project-meta-hover">2016 · Videoclip</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=ykVsGZ-jT1o" target="_blank" rel="noopener" data-cat="cine">
+      <img class="project-thumb" src="verano_rojo.jpg" alt="VERANO ROJO">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Cine</span>
+        <span class="project-title-hover">VERANO ROJO</span>
+        <span class="project-meta-hover">2017 · Largometraje</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=A4d3ylmC1fg&list=RDA4d3ylmC1fg&start_radio=1" target="_blank" rel="noopener" data-cat="videoclips">
+      <img class="project-thumb" src="despedida.jpg" alt="MANENA DUEL — DESPEDIDA">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Videoclips</span>
+        <span class="project-title-hover">MANENA DUEL — DESPEDIDA</span>
+        <span class="project-meta-hover">2021 · Videoclip</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=YEpLQAG8NGc&list=RDYEpLQAG8NGc&start_radio=1" target="_blank" rel="noopener" data-cat="videoclips">
+      <img class="project-thumb" src="or.jpg" alt="OR — LA CANCIÓN DEL VERANO">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Videoclips</span>
+        <span class="project-title-hover">OR — LA CANCIÓN DEL VERANO</span>
+        <span class="project-meta-hover">2022 · Videoclip</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=1BQTBuRPEwk" target="_blank" rel="noopener" data-cat="documental">
+      <img class="project-thumb" src="dear_michael.jpg" alt="DEAR MICHAEL">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Documental</span>
+        <span class="project-title-hover">DEAR MICHAEL</span>
+        <span class="project-meta-hover">2024 · Documental</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=opr9Vewr3Oo&list=RDopr9Vewr3Oo&start_radio=1" target="_blank" rel="noopener" data-cat="videoclips">
+      <img class="project-thumb" src="lejos_de_ti.jpg" alt="RELS B — LEJOS DE TI">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Videoclips</span>
+        <span class="project-title-hover">RELS B — LEJOS DE TI</span>
+        <span class="project-meta-hover">2018 · Videoclip</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=F4c_CFvsk7s&list=RDF4c_CFvsk7s&start_radio=1" target="_blank" rel="noopener" data-cat="videoclips">
+      <img class="project-thumb" src="skinny_flakk.jpg" alt="RELS B — SKINNY FLAKKKKKKK©">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Videoclips</span>
+        <span class="project-title-hover">RELS B — SKINNY FLAKKKKKKK©</span>
+        <span class="project-meta-hover">2016 · Videoclip</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+    <a class="project-item" href="https://www.youtube.com/watch?v=_JtfImUN5Zo&t=1348s" target="_blank" rel="noopener" data-cat="otros">
+      <img class="project-thumb" src="tentol.jpg" alt="TÉNTOL">
+      <div class="project-info-hover">
+        <span class="project-cat-badge">Otros</span>
+        <span class="project-title-hover">TÉNTOL</span>
+        <span class="project-meta-hover">2016 · Televisión</span>
+      </div>
+      <div class="project-hud-tl"></div>
+      <div class="project-hud-br"></div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+  /* ── FOOTER ── */
+  #footer {
+    background: #a72828;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 80px 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* SVG decorativo fondo */
+  .footer-svg-bg {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 55%;
+    display: flex; align-items: center; justify-content: flex-end;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .footer-svg-bg svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    opacity: 1;
+  }
+
+  .footer-inner {
+    position: relative; z-index: 2;
+    max-width: 1400px;
+  }
+
+  .footer-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .footer-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  .footer-email {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(28px, 4.5vw, 64px);
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .footer-email::after {
+    content: '';
+    position: absolute;
+    bottom: -23px; left: 0; right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    transform: scaleX(1);
+    transition: background 0.2s;
+  }
+
+  .footer-email:hover { color: var(--accent); }
+  .footer-email:hover::after { background: var(--accent); }
+
+  /* Toast de copiado */
+  .copy-toast {
+    position: fixed;
+    bottom: 60px; left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--accent);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px; letter-spacing: 0.2em;
+    padding: 10px 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    z-index: 99998;
+    text-transform: uppercase;
+  }
+
+  .copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .footer-divider {
+    width: 100%; height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 52px 0 36px;
+  }
+
+  .footer-socials-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .footer-socials-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: rgba(128,179,172,0.4);
+  }
+
+  .footer-socials {
+    display: flex; align-items: center; gap: 32px;
+  }
+
+  .footer-social-link {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-color: rgba(255,255,255,0.3);
+    letter-spacing: 0.02em;
+    transition: color 0.2s, text-decoration-color 0.2s;
+    cursor: none;
+  }
+
+  .footer-social-link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .footer-social-sep {
+    color: rgba(255,255,255,0.2);
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+  }
+
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-bottom-left {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .footer-bottom-right {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35);
+  }
+</style>
+
+<!-- TOAST COPIA EMAIL -->
+<div class="copy-toast" id="copyToast">Email copiado</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-svg-bg" aria-hidden="true">
+    <svg width="1537" height="690" viewBox="0 0 1537 690" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid meet">
+<path d="M770.428 689.273C774.251 688.662 777.603 686.62 779.872 683.495C781.286 681.557 782.159 679.358 782.491 677.053C781.862 677.071 781.217 677.106 780.588 677.123C780.256 679.009 779.523 680.807 778.354 682.395C776.364 685.118 773.448 686.916 770.114 687.423C769.451 687.527 768.805 687.562 768.159 687.562L768.159 677.263C763.376 677.228 758.593 677.123 753.827 676.896C753.845 677.001 753.845 677.123 753.862 677.228C754.456 681.051 756.516 684.403 759.64 686.672C762.137 688.487 765.087 689.448 768.124 689.448C768.91 689.465 769.66 689.395 770.428 689.273Z" fill="white" fill-opacity="0.15"/><path d="M782.631 674.278C782.02 674.295 781.391 674.33 780.78 674.348C780.833 675.29 780.763 676.233 780.606 677.141C781.234 677.123 781.88 677.088 782.509 677.071C782.631 676.146 782.683 675.22 782.631 674.278Z" fill="white" fill-opacity="0.15"/><path d="M782.631 674.278C782.02 674.295 781.391 674.33 780.78 674.348C780.833 675.29 780.763 676.233 780.606 677.141C781.234 677.123 781.88 677.088 782.509 677.071C782.631 676.146 782.683 675.22 782.631 674.278Z" fill="white" fill-opacity="0.15"/><path d="M768.177 674.505C763.341 674.47 758.541 674.365 753.74 674.121C753.688 675.046 753.723 675.971 753.845 676.914C758.611 677.141 763.376 677.263 768.177 677.28L768.177 674.505Z" fill="white" fill-opacity="0.15"/><path d="M768.177 674.505C763.341 674.47 758.541 674.365 753.74 674.121C753.688 675.046 753.723 675.971 753.845 676.914C758.611 677.141 763.376 677.263 768.177 677.28L768.177 674.505Z" fill="white" fill-opacity="0.15"/><path d="M753.74 674.103C675.5 670.245 602.269 639.138 545.047 585.371C546.845 582.875 547.805 579.942 547.805 576.905C547.805 576.154 547.752 575.404 547.63 574.636C547.019 570.813 544.977 567.461 541.852 565.192C541.468 564.912 541.032 564.633 540.56 564.354C535.585 561.473 529.598 561.875 525.111 564.982C513.415 551.96 502.872 538.169 493.515 523.715C537.959 503.465 573.728 467.417 593.628 422.781C624.334 488.453 691.019 534.067 768.177 534.067C838.492 534.067 900.096 496.186 933.717 439.766C957.546 481.889 996.212 514.55 1042.58 530.628C1033.97 543.214 1024.44 555.276 1014.02 566.71C1013.46 566.152 1012.88 565.628 1012.24 565.157C1009.72 563.324 1006.74 562.381 1003.72 562.381C1001.22 562.381 998.726 563.027 996.491 564.319C994.728 565.314 993.227 566.675 992.022 568.334C990.207 570.848 989.247 573.798 989.247 576.835C989.247 577.586 989.299 578.336 989.421 579.104C989.91 582.229 991.394 585.04 993.646 587.222C935.655 640.831 861.587 671.38 782.631 674.26C782.683 675.203 782.631 676.128 782.508 677.053C823.043 675.604 862.39 666.946 899.625 651.2C935.201 636.153 967.513 615.24 995.845 588.985C996.055 589.125 996.264 589.264 996.491 589.404C1002.92 593.122 1011.05 591.394 1015.41 585.389C1017.68 582.264 1018.61 578.441 1018.02 574.618C1017.68 572.541 1016.93 570.621 1015.8 568.91C1026.57 557.127 1036.41 544.645 1045.3 531.553C1065.01 538.064 1086.06 541.608 1107.92 541.608C1212.31 541.608 1298.26 461.22 1307.15 359.099C1311.37 358.907 1315.53 357.231 1318.76 354.002C1321.85 350.912 1323.52 346.95 1323.82 342.917L1520.89 342.917C1521.52 346.548 1524.66 349.306 1528.46 349.306C1532.72 349.306 1536.16 345.85 1536.16 341.608C1536.16 337.348 1532.7 333.909 1528.46 333.909C1524.66 333.909 1521.52 336.668 1520.89 340.299L1323.82 340.299C1323.52 336.266 1321.83 332.303 1318.76 329.214C1315.53 325.984 1311.37 324.308 1307.15 324.116C1298.26 221.995 1212.31 141.608 1107.92 141.608C1084.56 141.608 1062.15 145.64 1041.28 153.024C1032.33 140.421 1022.45 128.428 1011.73 117.081C1013.07 115.248 1013.98 113.101 1014.35 110.779C1014.47 110.011 1014.52 109.261 1014.52 108.51C1014.52 105.473 1013.56 102.505 1011.75 100.009C1010.54 98.3504 1009.04 97.0062 1007.28 95.9938C1005.03 94.702 1002.53 94.0561 1000.05 94.0561C997.05 94.0561 994.047 94.9813 991.534 96.8317C991.411 96.919 991.289 97.0411 991.167 97.1284C963.97 72.8638 933.263 53.3997 899.625 39.1726C862.425 23.4268 823.095 14.7683 782.596 13.3194C782.561 12.9528 782.526 12.5862 782.474 12.2196C781.88 8.39664 779.82 5.04498 776.695 2.77563C774.199 0.960141 771.249 2.91234e-05 768.212 2.90087e-05C767.461 2.89804e-05 766.693 0.0523987 765.942 0.174595C762.119 0.785575 758.768 2.82799 756.498 5.95272C754.875 8.18716 753.95 10.7882 753.775 13.4765C714.794 15.3793 676.966 24.0028 641.093 39.1726C606.529 53.7837 575.054 73.9112 547.316 99.1185C546.984 98.8217 546.635 98.5424 546.286 98.2805C543.772 96.4476 540.787 95.505 537.767 95.505C535.271 95.505 532.775 96.1508 530.54 97.4426C528.777 98.4377 527.276 99.7993 526.071 101.458C524.256 103.971 523.296 106.922 523.296 109.959C523.296 110.71 523.348 111.46 523.47 112.228C523.907 114.934 525.059 117.396 526.805 119.42C514.969 132.164 504.216 145.693 494.597 159.99C469.111 148.189 440.744 141.59 410.875 141.59C301.021 141.59 211.591 230.601 210.893 340.281L15.2745 340.281C14.6461 336.65 11.5038 333.892 7.69829 333.892C3.43888 333.892 -1.42055e-05 337.348 -1.44202e-05 341.59C-1.46357e-05 345.85 3.45634 349.289 7.69829 349.289C11.5038 349.289 14.6461 346.53 15.2745 342.9L210.875 342.9C211.591 452.579 301.021 541.59 410.858 541.59C439.33 541.59 466.422 535.603 490.949 524.832C500.463 539.6 511.163 553.6 522.981 566.763C522.51 567.252 522.039 567.775 521.637 568.351C519.368 571.476 518.425 575.299 519.036 579.122C519.63 582.945 521.69 586.297 524.815 588.566C527.328 590.399 530.313 591.342 533.333 591.342C535.83 591.342 538.326 590.696 540.56 589.404C541.52 588.863 542.393 588.199 543.196 587.431C571.93 614.402 604.801 635.838 641.075 651.183C676.983 666.37 714.847 674.993 753.862 676.879C753.723 675.971 753.688 675.028 753.74 674.103ZM1014.51 570.324C1015.34 571.72 1015.92 573.274 1016.18 574.932C1016.71 578.267 1015.9 581.601 1013.91 584.324C1011.47 587.693 1007.63 589.509 1003.74 589.509C1001.75 589.509 999.721 589.02 997.853 588.025C999.075 587.187 1000.19 586.14 1001.13 584.848C1001.61 584.202 1002.01 583.504 1002.36 582.805C1003.18 581.129 1003.61 579.349 1003.7 577.568C1003.93 573.152 1001.99 568.718 998.15 565.925C998.045 565.855 997.94 565.803 997.835 565.733C1002.09 563.498 1007.24 563.847 1011.15 566.675C1011.73 567.094 1012.27 567.583 1012.76 568.089C1013.42 568.77 1014.02 569.521 1014.51 570.324ZM491.595 520.765C460.731 471.973 443.327 415.885 441.267 357.092C441.494 357.074 441.721 357.057 441.966 357.022C445.911 356.411 449.367 354.281 451.724 351.069C454.08 347.84 455.023 343.895 454.412 339.967C453.801 336.022 451.671 332.565 448.459 330.209C446.382 328.707 444.008 327.8 441.547 327.485C444.654 268.604 463.193 212.586 495.208 164.144C538.343 184.708 572.838 220.546 591.691 264.624C581.391 288.191 575.648 314.201 575.648 341.52C575.648 368.892 581.391 394.938 591.743 418.539C572.349 463.839 536.423 500.48 491.595 520.765ZM441.372 330.244C443.31 330.523 445.16 331.273 446.784 332.443C449.402 334.346 451.13 337.174 451.636 340.368C452.143 343.58 451.357 346.775 449.454 349.411C447.552 352.029 444.724 353.758 441.512 354.264C441.39 354.281 441.267 354.281 441.145 354.299C440.621 354.369 440.115 354.421 439.592 354.421C439.173 354.421 438.771 354.369 438.352 354.316C436.24 354.107 434.215 353.356 432.469 352.082C429.851 350.179 428.122 347.351 427.616 344.156C427.11 340.944 427.896 337.75 429.798 335.114C431.701 332.495 434.529 330.767 437.724 330.261C438.003 330.209 438.282 330.191 438.562 330.174C439.522 330.086 440.447 330.104 441.372 330.244ZM768.177 531.291C691.263 531.291 624.893 485.31 595.112 419.394C605.254 395.479 610.858 369.189 610.858 341.608C610.858 313.991 605.237 287.667 595.06 263.717C624.823 197.748 691.228 151.698 768.177 151.698C838.09 151.698 899.276 189.701 932.216 246.12C916.732 274.505 907.917 307.044 907.917 341.59C907.917 376.102 916.697 408.589 932.146 436.956C899.206 493.34 838.055 531.291 768.177 531.291ZM935.777 436.275C951.68 408.274 960.775 375.927 960.775 341.486C960.775 307.096 951.698 274.784 935.847 246.819C958.663 205.551 995.88 173.309 1040.69 156.952C1075.97 207.384 1096.27 266.527 1099.31 328.847C1099.21 328.865 1099.1 328.864 1099 328.882C1091.61 330.052 1086.57 336.982 1087.72 344.366C1088.68 350.511 1093.64 355.014 1099.52 355.695C1097.58 417.788 1078.55 476.914 1044.65 527.66C998.027 511.757 959.256 478.816 935.777 436.275ZM1293.97 354.002C1295.96 355.992 1298.32 357.389 1300.81 358.209C1294.61 370.97 1281.54 379.785 1266.42 379.785C1245.81 379.785 1228.96 363.359 1228.26 342.9L1288.89 342.9C1289.2 346.967 1290.9 350.912 1293.97 354.002ZM1300.81 325.007C1298.32 325.844 1295.96 327.224 1293.97 329.214C1290.88 332.303 1289.2 336.266 1288.91 340.299L1228.28 340.299C1228.98 319.839 1245.82 303.413 1266.44 303.413C1281.54 303.43 1294.63 312.246 1300.81 325.007ZM1107.92 145.099C1209.86 145.099 1293.92 223.13 1303.5 322.615C1296.59 309.156 1282.57 299.939 1266.42 299.939C1243.89 299.939 1225.47 317.937 1224.77 340.316L1138.5 340.316C1137.78 340.316 1137.19 340.91 1137.19 341.625C1137.19 342.341 1137.78 342.934 1138.5 342.934L1224.77 342.934C1225.47 365.314 1243.87 383.312 1266.42 383.312C1282.57 383.312 1296.59 374.077 1303.5 360.635C1293.92 460.12 1209.86 538.151 1107.92 538.151C1086.78 538.151 1066.4 534.782 1047.31 528.568C1058.6 511.548 1068.33 493.48 1076.36 474.487C1092.31 436.764 1101 396.858 1102.28 355.748C1102.57 355.713 1102.87 355.695 1103.17 355.66C1110.55 354.491 1115.6 347.56 1114.45 340.176C1113.45 333.84 1108.2 329.231 1102.07 328.777C1100.18 289.744 1091.56 251.846 1076.37 215.92C1067.42 194.746 1056.37 174.723 1043.36 156.009C1063.59 148.957 1085.31 145.099 1107.92 145.099ZM992.633 98.3504C996.526 95.505 1001.69 95.1733 1005.95 97.4077C1005.85 97.4776 1005.74 97.5299 1005.64 97.5998C1002.85 99.6247 1001.08 102.54 1000.38 105.665C1000.12 106.852 1000.02 108.056 1000.09 109.261C1000.21 111.792 1001.05 114.323 1002.65 116.523C1003.6 117.797 1004.71 118.844 1005.94 119.7C1004.07 120.695 1002.04 121.184 1000.05 121.184C996.16 121.184 992.319 119.368 989.875 115.999C987.903 113.276 987.082 109.942 987.606 106.607C987.99 104.233 989.002 102.086 990.539 100.323C991.15 99.6247 991.83 98.9788 992.581 98.4202C992.598 98.3678 992.616 98.3678 992.633 98.3504ZM755.625 13.4067C755.817 11.1199 756.603 8.9378 757.982 7.03503C759.972 4.3118 762.887 2.53123 766.222 2.00754C766.885 1.9028 767.531 1.86788 768.177 1.86788L768.177 13.0925L768.177 15.8855L768.177 27.0752L768.142 27.0752C765.488 27.0752 762.922 26.2373 760.74 24.6487C758.017 22.6761 756.236 19.7434 755.713 16.4092C755.695 16.3394 755.695 16.2521 755.695 16.1823C755.573 15.2571 755.556 14.3319 755.625 13.4067ZM532.181 99.0486C532.076 98.9788 531.972 98.9264 531.867 98.8566C536.126 96.6222 541.276 96.9538 545.186 99.7993C545.448 99.9913 545.693 100.201 545.937 100.393C546.653 101.004 547.299 101.685 547.857 102.418C549.079 104.041 549.9 105.961 550.231 108.039C550.755 111.373 549.934 114.707 547.962 117.43C545.518 120.8 541.678 122.615 537.785 122.615C535.795 122.615 533.77 122.126 531.902 121.131C533.124 120.293 534.241 119.228 535.184 117.954C536.458 116.208 537.244 114.236 537.575 112.246C537.802 110.919 537.82 109.592 537.663 108.283C537.174 104.705 535.323 101.318 532.181 99.0486ZM528.812 121.358C528.952 121.463 529.091 121.585 529.231 121.69C529.615 121.969 530.051 122.248 530.523 122.528C536.947 126.246 545.082 124.518 549.446 118.513C551.715 115.388 552.64 111.565 552.047 107.742C551.663 105.298 550.685 103.046 549.219 101.143C605.848 49.7164 677.472 20.0053 753.862 16.2696C753.88 16.4267 753.88 16.5663 753.915 16.7234C754.508 20.5464 756.568 23.8981 759.693 26.1674C762.817 28.4368 766.64 29.362 770.446 28.7685C774.269 28.1575 777.621 26.1151 779.89 22.9903C781.391 20.9305 782.282 18.5738 782.561 16.1124C859.509 18.888 931.832 47.9707 989.159 99.0661C987.396 101.091 986.209 103.57 985.79 106.293C985.179 110.116 986.122 113.939 988.391 117.064C992.755 123.069 1000.89 124.797 1007.31 121.079C1007.79 120.817 1008.22 120.538 1008.61 120.241C1009.06 119.909 1009.48 119.56 1009.88 119.176C1020.3 130.209 1029.89 141.852 1038.6 154.002C994.065 170.516 956.952 202.461 933.805 243.31C900.201 186.838 838.544 148.905 768.194 148.905C691.001 148.905 624.282 194.571 593.593 260.295C574.234 216.933 539.862 181.671 497.146 161.159C506.572 147.229 517.151 133.909 528.812 121.358ZM275.011 340.299L214.384 340.299C215.082 319.839 231.928 303.413 252.544 303.413C267.644 303.413 280.737 312.228 286.916 324.989C280.353 327.189 275.535 333.141 275.011 340.299ZM286.916 358.226C280.719 370.987 267.644 379.803 252.544 379.803C231.928 379.803 215.082 363.376 214.384 342.917L275.011 342.917C275.535 350.074 280.353 356.027 286.916 358.226ZM410.858 538.116C308.754 538.116 224.614 459.841 215.222 360.164C222.065 373.85 236.205 383.294 252.527 383.294C269.303 383.294 283.792 373.326 290.39 359.012C291.071 359.099 291.752 359.152 292.467 359.152C301.702 359.152 309.261 351.994 309.924 342.934L401.17 342.934C401.885 342.934 402.479 342.341 402.479 341.625C402.479 340.909 401.885 340.316 401.17 340.316L309.924 340.316C309.243 331.256 301.702 324.099 292.467 324.099C291.769 324.099 291.071 324.151 290.39 324.238C283.792 309.924 269.303 299.956 252.527 299.956C236.205 299.956 222.065 309.383 215.222 323.086C224.596 223.392 308.754 145.134 410.858 145.134C440.028 145.134 467.731 151.541 492.642 162.992C481.662 179.698 472.183 197.382 464.327 215.955C449.315 251.462 440.726 288.889 438.701 327.433C438.23 327.468 437.776 327.468 437.305 327.538C433.36 328.149 429.903 330.278 427.546 333.49C425.19 336.72 424.247 340.665 424.858 344.61C425.469 348.555 427.599 352.012 430.811 354.369C433.08 356.027 435.716 356.97 438.439 357.179C439.871 397.8 448.529 437.2 464.31 474.505C471.31 491.036 479.567 506.852 489.046 521.917C465.095 532.321 438.649 538.116 410.858 538.116ZM538.902 587.85C539.007 587.92 539.111 587.972 539.216 588.042C534.957 590.277 529.807 589.928 525.897 587.1C523.174 585.11 521.393 582.194 520.869 578.86C520.346 575.526 521.166 572.192 523.139 569.468C523.47 569.015 523.837 568.578 524.221 568.177C524.867 567.496 525.583 566.885 526.351 566.379C528.428 565 530.854 564.266 533.316 564.266C535.306 564.266 537.331 564.755 539.199 565.75C537.977 566.588 536.86 567.653 535.917 568.927C534.747 570.533 533.997 572.296 533.613 574.112C533.351 575.351 533.263 576.591 533.351 577.83C533.63 581.688 535.533 585.389 538.902 587.85Z" fill="white" fill-opacity="0.15"/><path d="M776.695 663.298C773.571 661.028 769.748 660.103 765.942 660.697C762.119 661.308 758.767 663.35 756.498 666.475C754.84 668.744 753.915 671.38 753.757 674.121C758.558 674.365 763.359 674.47 768.194 674.505L768.194 662.39L768.229 662.39C770.882 662.39 773.448 663.228 775.631 664.816C778.354 666.789 780.134 669.722 780.658 673.056C780.728 673.492 780.763 673.929 780.798 674.365C781.409 674.348 782.037 674.313 782.648 674.295C782.613 673.789 782.578 673.283 782.491 672.759C781.88 668.919 779.82 665.567 776.695 663.298Z" fill="white" fill-opacity="0.15"/>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+
+    <div class="footer-eyebrow">see you space cowboy</div>
+
+    <a class="footer-email" id="emailLink" href="mailto:nibiruaudivisual@gmail.com"
+       onclick="copyEmail(event)">
+      nibiruaudivisual<br>@gmail.com
+    </a>
+
+    <div class="footer-divider"></div>
+
+    
+
+    <div class="footer-socials">
+      <!-- Sustituye los href por tus URLs reales -->
+      <a class="footer-social-link" href="https://www.instagram.com/nibiruframes" target="_blank" rel="noopener">instagram</a>
+      <span class="footer-social-sep">·</span>
+      <a class="footer-social-link" href="https://www.linkedin.com/in/toni-payeras-83025a100/" target="_blank" rel="noopener">linkedin</a>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-bottom-left">© 2026 NIBIRU FILMS · Todos los derechos reservados</span>
+      <span class="footer-bottom-right">SYS:ONLINE · BUILD 2026.06</span>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  /* ── CURSOR MIRILLA ── */
+  const cursor = document.getElementById('customCursor');
+  let cursorActive = false;
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+
+  function activateCursor() {
+    cursor.style.opacity = '1';
+    document.body.style.cursor = 'none';
+    cursorActive = true;
+  }
+
+  function deactivateCursor() {
+    cursor.style.opacity = '0';
+    document.body.style.cursor = '';
+    cursorActive = false;
+  }
+
+  document.querySelectorAll('.project-item, .filter-btn, .footer-social-link, .footer-email').forEach(el => {
+    el.addEventListener('mouseenter', activateCursor);
+    el.addEventListener('mouseleave', deactivateCursor);
+  });
+
+  /* ── COPIAR EMAIL ── */
+  function copyEmail(e) {
+    e.preventDefault();
+    navigator.clipboard.writeText('nibiruaudivisual@gmail.com').then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+  }
+  window.copyEmail = copyEmail;
+
+  /* ── FILTROS ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+  const countEl = document.getElementById('projectCount');
+
+  function updateCount() {
+    const visible = document.querySelectorAll('.project-item:not(.hidden)').length;
+    const total   = projectItems.length;
+    countEl.textContent = visible + ' / ' + total;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      projectItems.forEach(item => {
+        const cat = item.dataset.cat;
+        if (filter === 'all' || cat === filter) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      updateCount();
+    });
+  });
+
+  updateCount();
+</script>
+</body>
+</html>
